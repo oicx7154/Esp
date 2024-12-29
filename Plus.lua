@@ -126,9 +126,38 @@ end
     end,
 })
 Button:Set("Soul Curse","点击")
+local Button = Tab1:CreateButton({
+    Name = "Volcano Curse",
+    Interact = "Click",
+    Callback =function()
+local maxChecks = 100
+local checkInterval = 3 -- 秒
+
+for i = 1, maxChecks do
+    local mob = game.Workspace.Objects.Mobs:FindFirstChild("Volcano Curse")
+    if mob then
+        local head = mob:FindFirstChild("Head")
+        if head then
+            head:remove()
+            print("在第 " .. i .. " 次检查时移除了 Volcano Curse")
+            break
+        else
+            print("在第 " .. i .. " 次检查时未找到 Volcano Curse ")
+        end
+    else
+        print("在第 " .. i .. " 次检查时未找到 Volcano Curse ")
+    end
+    if i < maxChecks then
+        task.wait(checkInterval)
+    end
+end
+    end,
+})
+Button:Set("Volcano Curse","点击")
 local Tab2 = Window:CreateTab("Fast Farm", 4483362458) -- Title, Image
 local Label = Tab2:CreateLabel("如果卡了视角,想自己控制视角就重置角色")
 Label:Set("如果卡了视角,想自己控制视角就重置角色")
+
 local function startQuestLoop()
     isQuestLooping = true
     while isQuestLooping do
@@ -147,11 +176,11 @@ local function startQuestLoop()
                 ["title"] = "已位居",
                 ["amount"] = 1,
                 ["level"] = 240,
-                ["subtitle"] = "Bro是快男💀💀💀",
-                ["grade"] = "Grade 4"
+                ["subtitle"] = "Bro是快男💀",
+                ["grade"] = "Grade 1"
             }
         }
-        ReplicatedStorage:WaitForChild("Remotes"):WaitForChild("Server"):WaitForChild("Data"):WaitForChild("TakeQuest"):InvokeServer(unpack(questArgs))
+        game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Server"):WaitForChild("Data"):WaitForChild("TakeQuest"):InvokeServer(unpack(questArgs))
         task.wait(0.3)
         if not isQuestLooping then
             break
@@ -171,6 +200,7 @@ local QuestToggle = Tab2:CreateToggle({
        end
    end,
 })
+
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Workspace = game:GetService("Workspace")
@@ -184,7 +214,7 @@ local function teleportAboveFingerBearer(Grade2Curse)
             local position = humanoid.RootPart.Position
             local new_position = position + Vector3.new(0,30, 0)  -- 向上移动5个单位
             LocalPlayer.Character.HumanoidRootPart.Position = new_position
-            task.wait(0.3)
+            task.wait(0.1)
             LocalPlayer.Character.HumanoidRootPart.CanCollide = true
 
         end
